@@ -17,7 +17,6 @@
     "dev:stats": "bun sst shell --stage=production -- bun run --cwd packages/stats/app dev",
     "dev:www": "bun run --cwd services/www dev",
     "dev:storybook": "bun --cwd packages/storybook storybook",
-    "build:cli:local": "bun run script/build-cli-local.ts",
     "bench:devex": "bun run --cwd packages/app test:bench:devex",
     "lint": "oxlint && ast-grep scan -c script/ast-grep/gui-extensions/sgconfig.yml && bun script/sdk-docs.ts",
     "lint:changed": "bun script/lint-changed.ts",
