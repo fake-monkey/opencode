@@ -20,6 +20,7 @@
     "build": "bun run script/build.ts",
     "build:node": "bun run script/build-node.ts",
     "build:local": "bun run script/build-local.ts",
+    "install:local": "bun run script/install-local.ts",
     "dev": "bun run src/index.ts",
     "test": "bun test --timeout 30000 --only-failures",
     "typecheck": "bun check --no-script -b",
