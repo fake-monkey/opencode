@@ -107,7 +107,7 @@
     },
     "packages/cli": {
       "name": "@opencode/cli",
-      "version": "2.2.5",
+      "version": "2.2.6-local",
       "bin": {
         "opencode": "./bin/opencode.cjs",
         "opencode2": "./bin/opencode2.cjs",
