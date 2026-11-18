@@ -26,9 +26,11 @@ const flags = [`--${os}`, `--${cli.cpu}`, "--publish", "never", "--config", "ele
 
 process.chdir(dir)
 
-await rm("dist", { recursive: true, force: true })
-
-await rm(out, { recursive: true, force: true })
+// Installer input may live in either output directory; preserve it when wrapping a prepackaged app.
+if (!app) {
+  await rm("dist", { recursive: true, force: true })
+  await rm(out, { recursive: true, force: true })
+}
 
 await mkdir(out, { recursive: true })
 

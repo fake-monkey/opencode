@@ -1,7 +1,7 @@
 {
   "name": "@opencode/desktop",
   "private": true,
-  "version": "2.2.5",
+  "version": "2.2.6+custom.1",
   "type": "module",
   "license": "MIT",
   "homepage": "https://opencode.ai",
@@ -17,6 +17,7 @@
     "migration": "bun run script/migration.ts",
     "build": "bun run script/build.ts",
     "pack": "bun run script/pack.ts",
+    "pack:installer": "bun run script/pack-installer.ts",
     "preview": "electron-vite preview"
   },
   "main": "./out/main/index.js",

@@ -34,6 +34,34 @@ downloads the published dev CLI, `beta` downloads the beta CLI, and `prod`/`late
 `bun dev` is separate from packaging: it uses local renderer/server mode, the dev app identity, and the CLI source by
 default. `bun dev --download-server <version>` instead downloads that CLI version for local development.
 
+## Local Windows installer
+
+Build from your verified stable baseline and personal modifications. Selecting `latest` does not establish
+that the source is a stable release. In PowerShell, from the repository root (x64 example):
+
+```powershell
+$env:OPENCODE_CHANNEL = "latest"
+$env:OPENCODE_VERSION = (Get-Content packages/desktop/package.json | ConvertFrom-Json).version # Currently 2.2.6+custom.1
+bun run --cwd packages/cli build --single --baseline
+bun run --cwd packages/desktop build
+bun run --cwd packages/desktop pack
+bun run --cwd packages/desktop pack:installer
+```
+
+Run each command only after the previous one succeeds. Keep the same channel and version throughout.
+`pack:installer` calls the existing `pack.ts` with the packaged application in `dist/desktop/app`, preserving
+that directory and taking the installer version from `packages/desktop/package.json`, overriding any
+`OPENCODE_VERSION` in the environment. Use that same package version for the preceding build steps.
+It does not rebuild or install the application. Architecture follows `OPENCODE_TARGET`, or the host when unset.
+For ARM64, set `OPENCODE_TARGET=windows-arm64` throughout the build and packaging steps.
+The installer is generated at `dist/desktop/opencode-desktop-win-x64.exe` (`win-arm64` for ARM64), with an
+intermediate copy in `packages/desktop/dist`. Architecture selection is the caller's responsibility.
+Without signing credentials, this is an unsigned local installer.
+
+Run the installer manually. It installs a copy outside the repository, so later source edits and builds do not
+change the installed application. It uses the production application identity and update feed: it can replace
+an existing production installation and shares its user data. This does not isolate settings or background services.
+
 ## Beta channel
 
 Every push to the `beta` branch publishes OpenCode Beta (`ai.opencode.desktop.beta`) as version `0.0.0-beta-<run>` to
